@@ -1,0 +1,18 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etoak.java.mapper.UsersMapper">
+
+    <!-- id = UserMapper.java 中的抽象方法名 区分大小写 -->
+    <!--
+        update 表名 set 字段名 = 要修改的值 where 条件
+
+        按顺序#{0}， 但是@param可以改个映射名字
+    -->
+    <update id="blockUser">
+        update  users set is_block = 1 where id = #{userId} and is_block = 0;
+    </update>
+    <update id="updateUserCreditLevel">
+        update users set max(creditLevel = creditLevel + #{levelNumber}, 0) where id = #{userId};
+    </update>
+
+</mapper>

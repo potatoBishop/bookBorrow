@@ -1,0 +1,22 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="BmUserApplication8088" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <additionalParameters>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="server.port" />
+        <option name="value" value="8088" />
+      </param>
+    </additionalParameters>
+    <module name="BM-USER" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.etoak.java.BmUserApplication" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.etoak.java.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

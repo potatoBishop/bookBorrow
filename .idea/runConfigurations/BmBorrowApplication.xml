@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="BmBorrowApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="BM-BORROW" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.etoak.java.BmBorrowApplication" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.etoak.java.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
