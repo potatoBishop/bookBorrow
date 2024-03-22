@@ -53,4 +53,9 @@ public class BookServiceImpl
             return null;
         }
     }
+
+    @Override
+    public boolean updateDurability() {
+        return false;
+    }
 }

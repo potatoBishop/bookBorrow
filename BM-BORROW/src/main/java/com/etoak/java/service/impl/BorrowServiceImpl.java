@@ -3,6 +3,7 @@ package com.etoak.java.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.etoak.java.entity.Borrow;
+import com.etoak.java.feign.IBookServiceFeign;
 import com.etoak.java.feign.IUserServiceFeign;
 import com.etoak.java.mapper.BorrowMapper;
 import com.etoak.java.service.IBorrowService;
@@ -30,6 +31,8 @@ public class BorrowServiceImpl
     RestTemplate restTemplate;
     @Autowired
     IUserServiceFeign userServiceFeign;
+    @Autowired
+    IBookServiceFeign bookServiceFeign;
 
     /**
      * 用户借书
@@ -177,30 +180,19 @@ public class BorrowServiceImpl
      */
     @Override
     public boolean borrowBookFeign(Integer userId, String bookNo, Integer duration) {
-        // 1.判断用户是否被禁用了
-//        String baseUrl = "http://localhost:8083/users/blockStatus";
-        //String baseUrl = "http://bm-user-service/users/blockStatus";
-        // URL构建器 -> 携带请求参数
-        //UriComponentsBuilder builder
-        //        = UriComponentsBuilder.fromHttpUrl(baseUrl)
-        //        .queryParam("id",userId);
-        // 构建器 构建 URL
-        //String url = builder.toUriString();
-        // 发送请求
-        //ResultVO<Integer> blockStatusResult = restTemplate.getForObject(url, ResultVO.class);
         ResultVO<Integer> blockStatusResult = userServiceFeign.getUserBlockStatus(userId);
         System.out.println("查询用户禁用状态：" + blockStatusResult);
         //查询用户禁用状态
-        // Integer blockStatus = (Integer) blockStatusResult.getData();  可以，但是蠢
         Integer blockStatus = blockStatusResult.getData();
         if( blockStatus == 1 ){
             //用户被禁用了
             return false;
         }
         // 2.用户要借的书是否还在（在库？已借出）
-        Integer bookStatus = 0; //在库
-        if( bookStatus == 1 ){
+        ResultVO<Integer> bookStatus = bookServiceFeign.checkBookStatus(bookNo); //在库
+        if( bookStatus.getData() == 1 ){
             //图书已借出
+            System.out.println(bookNo+"图书已经借出");
             return false;
         }
         // 3.新增一条借阅记录 borrow

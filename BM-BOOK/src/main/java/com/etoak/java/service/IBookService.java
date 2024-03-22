@@ -11,4 +11,6 @@ public interface IBookService {
     public List<Book> selectAllBook();
 
     public Integer checkBookStatus(String bookNo);
+
+    public boolean updateDurability();
 }

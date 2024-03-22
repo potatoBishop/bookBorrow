@@ -44,8 +44,10 @@ public class BookController {
         if ( status == null){
             return ResultVO.failed("未查询到相关数据");
         } else {
-            return ResultVO.success("书籍 "+bookNo+" 状态为:"+status);
+            return ResultVO.success(status);
         }
     }
+
+
 
 }
