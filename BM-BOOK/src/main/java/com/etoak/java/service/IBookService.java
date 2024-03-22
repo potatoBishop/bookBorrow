@@ -13,4 +13,6 @@ public interface IBookService {
     public Integer checkBookStatus(String bookNo);
 
     public boolean updateDurability(String bookNo, Integer durability);
+
+    public boolean updateBookStatus(String bookNo, Integer status);
 }

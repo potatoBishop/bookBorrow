@@ -55,6 +55,12 @@ public class BookServiceImpl
         }
     }
 
+    /**根据book_no更新书籍磨损
+     *
+     * @param bookNo
+     * @param durability
+     * @return
+     */
     @Override
     public boolean updateDurability(String bookNo, Integer durability) {
         if( 0 <= durability && durability >= 5  ){
@@ -72,6 +78,27 @@ public class BookServiceImpl
         updateWrapper.eq("book_no",bookNo);
         Book newBook = new Book();
         newBook.setDurability(durability);
+        int changeNum = bookMapper.update(newBook, updateWrapper);
+        if( changeNum > 0 ){
+            return true;
+        }else {
+            System.out.println("update时出现错误0");
+            return false;
+        }
+    }
+
+    /**根据book_no更新status
+     *
+     */
+    public boolean updateBookStatus(String bookNo, Integer status){
+        if( 0 <= status && status >= 3  ){
+            System.out.println("status数据非法！");
+            return false;
+        }
+        UpdateWrapper<Book> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("book_no",bookNo);
+        Book newBook = new Book();
+        newBook.setStatus(status);
         int changeNum = bookMapper.update(newBook, updateWrapper);
         if( changeNum > 0 ){
             return true;

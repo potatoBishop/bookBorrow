@@ -61,4 +61,18 @@ public class BookController {
             return ResultVO.failed();
         }
     }
+
+
+    /**更新一本书的status
+     *
+     */
+    @RequestMapping("updateBookStatus")
+    public ResultVO updateBookStatus(String bookNo, Integer status){
+        boolean flag = bookService.updateBookStatus(bookNo, status);
+        if( flag == true ){
+            return ResultVO.success(null);
+        } else {
+            return ResultVO.failed();
+        }
+    }
 }
