@@ -49,5 +49,16 @@ public class BookController {
     }
 
 
-
+    /**更新一本书的磨损状态
+     *
+     */
+    @RequestMapping("/updateDurability")
+    public ResultVO updateDurability(String bookNo, Integer durability){
+        boolean flag = bookService.updateDurability(bookNo, durability);
+        if( flag == true ){
+            return ResultVO.success(null);
+        } else {
+            return ResultVO.failed();
+        }
+    }
 }
