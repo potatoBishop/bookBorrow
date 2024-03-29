@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.etoak.java.entity.Book;
 import com.etoak.java.mapper.BookMapper;
 import com.etoak.java.service.IBookService;
+import com.etoak.java.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,6 @@ public class BookServiceImpl
             return null;
         }
     }
-
 
     /**根据book_no获取status
      *
@@ -107,4 +107,89 @@ public class BookServiceImpl
             return false;
         }
     }
+
+    // 教学==================================================================
+    @Override
+    public int addBook(Book book) {
+        return 0;
+    }
+
+    @Override
+    public int updateBook(Book book) {
+        return 0;
+    }
+
+    @Override
+    public int deleteByBookNo(String bookNo) {
+        QueryWrapper param = new QueryWrapper<>();
+        param.eq("book_no", bookNo);
+        return bookMapper.delete(param);
+    }
+
+    @Override
+    public int deleteById(Integer id) {
+
+        return bookMapper.deleteById(id);
+    }
+
+    /**
+     * 多条件组合查询
+     * @param book
+     * @return
+     */
+    @Override
+    public List<Book> getList(Book book) {
+        QueryWrapper param = new QueryWrapper();
+        if(StringUtils.isNotEmpty(book.getBookName())){
+            param.like("book_name",book.getBookName());
+        }
+        if(StringUtils.isNotEmpty(book.getBookNo())){
+            param.eq("book_no",book.getBookNo());
+        }
+        /**
+         * 前端传送的查询格式  “物理，国内，中文”
+         * 数据库内          “国内，物理，中文，高级，比较难”
+         */
+        if( StringUtils.isNotEmpty(book.getBookLable()) ){
+            // 如何将字符串按逗号分割
+            String bookLable = book.getBookLable();
+            String[]  lableArray = bookLable.split(",");
+            for( String s : lableArray ){
+                if( StringUtils.isNotEmpty(s) ){
+                    param.like("book_lable", s);
+                }
+            }
+        }
+        return bookMapper.selectList(param);
+    }
+
+    @Override
+    public Book getBookByNo(String bookNo) {
+        return bookMapper.getBookByNo(bookNo);
+    }
+
+
+    @Override
+    public int updateBookStatus2(String bookNo, Integer status) {
+        return bookMapper.updateBookStatus2(bookNo, status);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

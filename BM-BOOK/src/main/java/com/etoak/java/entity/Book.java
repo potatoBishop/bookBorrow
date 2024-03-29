@@ -15,6 +15,9 @@ public class Book {
     @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
 
+    @TableField(value = "book_no")
+    private String bookNo;
+
     @TableField(value = "book_name")
     private String bookName;
 

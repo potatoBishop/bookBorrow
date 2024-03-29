@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /***
  * @Author 高俊 QQ:1120934832
@@ -33,6 +33,24 @@ public class BorrowServiceImpl
     IUserServiceFeign userServiceFeign;
     @Autowired
     IBookServiceFeign bookServiceFeign;
+
+//    /**多条件查询书籍目录
+//     *
+//     * @param restriction
+//     * @return
+//     */
+//    @Override
+//    public List<Book> selectBookByRestrict(Book book) {
+//        String part[] = book.getBookLable.split(",");
+//        QueryWrapper queryWrapper = new QueryWrapper();
+//        for(String p: part){
+//            queryWrapper.like("book_lable", p);
+//        }
+//        ResultVO result = bookServiceFeign.selectList(queryWrapper);
+//        List<Book> bookList = result.getData();
+//
+//        return null;
+//    }
 
     /**
      * 用户借书
@@ -83,6 +101,7 @@ public class BorrowServiceImpl
 
         return true;
     }
+
 
     /**
      * 还书
@@ -136,45 +155,18 @@ public class BorrowServiceImpl
        // ResultVO<Integer> blockStatusResult = restTemplate.getForObject(url, ResultVO.class);
         ResultVO<Integer> blockStatusResult = userServiceFeign.updateUserCreditLevel(lastBorrow.getUserId(), levelNumber);
         System.out.println("更新用户信用等级：" + blockStatusResult);
+
+        // 更新书籍状态 为待借出
+        bookServiceFeign.updateBookStatus(bookNo, 0);
+
+        // 更新磨损  懒得写逻辑了
+        // todo
+
         return false;
-//        Date today = new Date();
-//        Date pre   = lastBorrow.getCreateTime();
-//        long milliseconds1 = today.getTime();
-//        long milliseconds2 = pre.getTime();
-//        long diff = milliseconds2 - milliseconds1;
-//        long daysBetween = diff / (24 * 60 * 60 * 1000);        // 获取时间间隔
-//
-//        String baseUrl = "http://bm-user-service/users/updateUserCreditLevel";
-//        UriComponentsBuilder builder
-//                = UriComponentsBuilder.fromHttpUrl(baseUrl)
-//                .queryParam("userId",lastBorrow.getUserId(),"");
-//        // 构建器 构建 URL
-//        String url = builder.toUriString();
-//        // 发送请求
-//        ResultVO<Integer> blockStatusResult = restTemplate.getForObject(url, ResultVO.class);
-//        if( daysBetween > (long)lastBorrow.getDuration() ){
-//            // 逾期
-//            // 更新借阅记录
-//            lastBorrow.setComment("无备注");
-//            lastBorrow.setStatus(2);         //0：借阅中  1：已归还   2：已逾期   3：无法归还
-//            lastBorrow.setReturnTime(today);
-//            borrowMapper.updateById(lastBorrow);
-//            // 用户等级修改
-//
-//        } else {
-//            // 正常
-//            // 更新借阅记录
-//            lastBorrow.setComment("无备注");
-//            lastBorrow.setStatus(1);         //0：借阅中  1：已归还   2：已逾期   3：无法归还
-//            lastBorrow.setReturnTime(today);
-//            borrowMapper.updateById(lastBorrow);
-//            // 用户等级修改
-//        }
-//
-//        return false;
     }
 
-    /**
+
+    /**用户借书 Feign版本
      * 借阅服务中：
      * 实现根据用户id查询禁用状态
      */
@@ -205,7 +197,7 @@ public class BorrowServiceImpl
         borrowMapper.insert(newBorrow);
 
         // 4.将书修改为已借出状态
-
+        bookServiceFeign.updateBookStatus(bookNo, 1);
 
         return false;
     }

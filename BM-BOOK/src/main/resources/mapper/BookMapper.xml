@@ -1,5 +1,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.etoak.java.mapper.BookMapper">
+    <select id="getBookNo">
+        select * from book where book_no = #{bookNo}
+    </select>
 
+    <update id="updateBookStatus2">
+        update book set status = #{status} where book_no = #{bookNo}
+    </update>
 </mapper>

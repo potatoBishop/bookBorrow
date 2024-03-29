@@ -1,5 +1,6 @@
 package com.etoak.java.controller;
 
+import com.etoak.java.constants.BookConstants;
 import com.etoak.java.entity.Book;
 import com.etoak.java.service.IBookService;
 import com.etoak.java.vo.ResultVO;
@@ -66,7 +67,7 @@ public class BookController {
     /**更新一本书的status
      *
      */
-    @RequestMapping("updateBookStatus")
+    @RequestMapping("/updateBookStatus")
     public ResultVO updateBookStatus(String bookNo, Integer status){
         boolean flag = bookService.updateBookStatus(bookNo, status);
         if( flag == true ){
@@ -75,4 +76,144 @@ public class BookController {
             return ResultVO.failed();
         }
     }
+
+    // 教学============================================================================
+
+    /**
+     * 多条件查询数据列表
+     * @param book
+     * @return
+     */
+    @RequestMapping("/list")
+    public ResultVO getBookList(Book book){
+        List<Book> resultList =
+                bookService.getList(book);
+        return ResultVO.success(resultList);
+    }
+
+    /**
+     * 新增书籍的方法
+     * @param book
+     * @return
+     */
+    @RequestMapping("/add")
+    public ResultVO addBook(Book book){
+        int result = bookService.addBook(book);
+        if (result > 0){
+            return ResultVO.success(null);
+        }else {
+            return ResultVO.failed("新增书籍失败");
+        }
+    }
+
+    /**更新书籍的方法
+     *
+     * @param book
+     * @return
+     */
+    @RequestMapping("/update")
+    public ResultVO updateBook(Book book){
+        int result = bookService.updateBook(book);
+        if (result > 0){
+            return ResultVO.success(null);
+        }else {
+            return ResultVO.failed("更新书籍失败");
+        }
+    }
+
+    /**根据id删除书籍的方法
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/deleteBookById")
+    public ResultVO deleteBookById(Integer id){
+        int result = bookService.deleteById(id);
+        if (result > 0){
+            return ResultVO.success(null);
+        }else {
+            return ResultVO.failed("按照id删除书籍失败");
+        }
+    }
+
+    /**根据bookNo删除书籍的方法
+     *
+     * @param bookNo
+     * @return
+     */
+    @RequestMapping("/deleteBookByNo")
+    public ResultVO deleteBookByNo(String bookNo){
+        int result = bookService.deleteByBookNo(bookNo);
+        if (result > 0){
+            return ResultVO.success(null);
+        }else {
+            return ResultVO.failed("按照bookNo删除书籍失败");
+        }
+    }
+
+    /**根据bookNo获取一本书籍
+     *
+     * @param bookNo
+     * @return
+     */
+    @RequestMapping("/getBookByNo")
+    public ResultVO getBookByNo(String bookNo){
+        Book book = bookService.getBookByNo(bookNo);
+        return ResultVO.success(book);
+    }
+
+    /**书籍借出时调用
+     *
+     * @param bookNo
+     * @return
+     */
+    @RequestMapping("/bookBorrow")
+    public ResultVO bookBorrow(String bookNo){
+       int result =
+               bookService.updateBookStatus2(bookNo, BookConstants.BOOK_STATUS_YJC);
+        if (result > 0){
+            return ResultVO.success(null);
+        }else {
+            return ResultVO.failed("书籍状态更新失败");
+        }
+    }
+
+    /**书籍归还时调用
+     *
+     * @param bookNo
+     * @return
+     */
+    @RequestMapping("/bookReturn")
+    public ResultVO bookReturn(String bookNo){
+        int result =
+                bookService.updateBookStatus2(bookNo, BookConstants.BOOK_STATUS_KJC);
+        if (result > 0){
+            return ResultVO.success(null);
+        }else {
+            return ResultVO.failed("书籍状态更新失败");
+        }
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
