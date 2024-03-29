@@ -19,6 +19,11 @@
 
 
     <dependencies>
+        <!-- nacos config 配置中心的依赖 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
         <!-- 添加 openfeign 的依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
