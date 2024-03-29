@@ -9,7 +9,9 @@ spring:
   application:
     name: bm-user-service
   profiles:
-    active: dev       # 自动拼接  bm-user-service-dev
+    active: dev       # 自动拼接  bm-user-service-dev     开发环境
+#    active: test       # 自动拼接  bm-user-service-test  测试环境
+#    active: prod       # 自动拼接  bm-user-service-prod  生产环境
   cloud:
     nacos:
       discovery:
