@@ -22,7 +22,15 @@ public interface IBookServiceFeign {
             @RequestParam(value = "bookNo") String bookNo,
             @RequestParam(value = "status") Integer status);
 
-    @RequestMapping(value = "selectList")
+    @RequestMapping(value = "/selectList")
     ResultVO selectList(
             @Param("ew") Wrapper<Book> queryWrapper);
+
+
+    @RequestMapping(value = "/bookBorrow")
+    public  ResultVO bookBorrow(@Param(value = "bookNo") String bookNo);
+
+    @RequestMapping(value = "/bookReturn")
+    public  ResultVO bookReturn(@Param(value = "bookNo") String bookNo);
+
 }

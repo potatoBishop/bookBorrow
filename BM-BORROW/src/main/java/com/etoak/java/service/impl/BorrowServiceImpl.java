@@ -98,6 +98,7 @@ public class BorrowServiceImpl
         Integer flag = borrowMapper.insert(newBorrow);
         System.out.println("新增一条记录"+ flag);
         // 4.将书修改为已借出状态
+        bookServiceFeign.bookBorrow(bookNo);
 
         return true;
     }
@@ -153,12 +154,13 @@ public class BorrowServiceImpl
         String url = builder.toUriString();
         // 发送请求  上方已经无用
        // ResultVO<Integer> blockStatusResult = restTemplate.getForObject(url, ResultVO.class);
-        ResultVO<Integer> blockStatusResult = userServiceFeign.updateUserCreditLevel(lastBorrow.getUserId(), levelNumber);
+        ResultVO<Integer> blockStatusResult
+                = userServiceFeign.updateUserCreditLevel(lastBorrow.getUserId(), levelNumber);
         System.out.println("更新用户信用等级：" + blockStatusResult);
 
         // 更新书籍状态 为待借出
-        bookServiceFeign.updateBookStatus(bookNo, 0);
-
+//        bookServiceFeign.updateBookStatus(bookNo, 0);
+        bookServiceFeign.bookReturn(bookNo);
         // 更新磨损  懒得写逻辑了
         // todo
 
