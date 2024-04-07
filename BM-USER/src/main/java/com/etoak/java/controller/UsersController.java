@@ -7,6 +7,7 @@ import com.etoak.java.vo.UsersVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,9 +15,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@RefreshScope                       // 变量改变时刷新相关实体类
 public class UsersController {
     @Autowired
     UsersServiceImpl usersService;
+
+    @Value("${qdu.stu-no}")
+    private String stuNoPrefix;     //前缀 nacos作用
+
+    @RequestMapping("/prefix")
+    public void getStuNoPrefix(){
+        System.out.println("从配置中心读取配置"+stuNoPrefix);
+    }
+
 
     /**
      * 请求的URL
