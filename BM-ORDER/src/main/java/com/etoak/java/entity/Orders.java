@@ -2,21 +2,25 @@ package com.etoak.java.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
+@TableName(value = "orders")
+@Data
 public class Orders {
     @TableId(value = "id")
     private Integer id;
 
-    @TableId(value = "order_no")
-    private Integer orderNo;
+    @TableField(value = "order_no")
+    private String orderNo;
 
-    @TableId(value = "create_user")
+    @TableField(value = "create_user")
     private String createUser;
 
     @TableField(value = "create_time")

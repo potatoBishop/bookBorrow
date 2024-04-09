@@ -37,6 +37,6 @@ spring:
 #    # 账号密码
 #    username: root
 #    password: 123456
-logging:
-  level:
-    com.etoak.java.service.impl: debug
+#logging:
+#  level:
+#    com.etoak.java.service.impl: debug
