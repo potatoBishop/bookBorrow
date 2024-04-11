@@ -24,10 +24,13 @@ public interface IUserServiceFeign {
      * @return
      */
     @RequestMapping(value = "/blockStatus")
-    ResultVO getUserBlockStatus(@RequestParam(value = "id") Integer userId);
+    ResultVO getUserBlockStatus(
+            @RequestParam(value = "id") Integer userId);
+
     @RequestMapping(value = "/updateUserCreditLevel")
-    ResultVO updateUserCreditLevel(@RequestParam(value = "id") Integer userid,
-                                   @RequestParam(value = "levelNumber") Integer levelNumber);
+    ResultVO updateUserCreditLevel(
+            @RequestParam(value = "id") Integer userid,
+            @RequestParam(value = "levelNumber") Integer levelNumber);
 }
 
 

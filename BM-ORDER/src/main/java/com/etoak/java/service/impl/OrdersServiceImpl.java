@@ -1,19 +1,24 @@
 package com.etoak.java.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.etoak.java.entity.Orders;
+import com.etoak.java.feign.IBookServiceFeign;
 import com.etoak.java.mapper.OrdersMapper;
 import com.etoak.java.service.IOrdersService;
+import com.etoak.java.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
+import com.etoak.java.entity.Book;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -25,6 +30,9 @@ public class OrdersServiceImpl
 
     @Autowired
     OrdersMapper ordersMapper;
+
+    @Autowired
+    IBookServiceFeign bookServiceFeign;
 
     @Value("${order.header}")
     private String orderNoHeader;     //前缀 nacos作用
@@ -40,9 +48,6 @@ public class OrdersServiceImpl
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        // 随机生成书籍
-        Random rand = new Random();
-        String bookNo = "B" + formatter.format(date) + new String(String.valueOf(rand.nextInt(9000)+1000));
 
         // 随机生成订单号
         String orderNo = orderNoHeader + formatter.format(date);
@@ -137,9 +142,10 @@ public class OrdersServiceImpl
      */
     @Override
     public int updateOrders(Orders order) {
-        QueryWrapper wrapper = new QueryWrapper();
-        wrapper.setEntity(order);
-        int result = ordersMapper.update(wrapper);
+        UpdateWrapper<Orders> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("order_no",order.getOrderNo());
+        Orders orders = new Orders();
+        int result = ordersMapper.update(order, updateWrapper);
         return result;
     }
 
@@ -150,7 +156,13 @@ public class OrdersServiceImpl
      */
     @Override
     public int approved(String orderNo) {
-        int result = ordersMapper.updateOrderStatus(orderNo, 1);
+        int result = 0;
+        result = ordersMapper.updateOrderStatus(orderNo, 1);
+        if( result == 0 ) return result;
+        else if( result == 1 ){
+            System.out.println("调用bookOpenFeign");
+        }
+        result = 2;  // 无法完成的主要部分， openFeign不支持对象的传递
         return result;
     }
 

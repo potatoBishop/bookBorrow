@@ -2,23 +2,34 @@ package com.etoak.java.controller;
 
 import com.etoak.java.constants.BookConstants;
 import com.etoak.java.entity.Book;
+import com.etoak.java.entity.Orders;
+import com.etoak.java.feign.IOrdersServiceFeign;
+import com.etoak.java.mapper.BookMapper;
 import com.etoak.java.service.IBookService;
 import com.etoak.java.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 书籍
  */
 @RestController
 @RequestMapping("/book")
+@RefreshScope
 public class BookController {
 
     @Autowired
     IBookService bookService;
+
+    @Autowired
+    IOrdersServiceFeign ordersServiceFeign;
 
 
     /**查询所有书籍
@@ -96,15 +107,22 @@ public class BookController {
      * @param book
      * @return
      */
-    @RequestMapping("/add")
+    @RequestMapping("/addBook")
     public ResultVO addBook(Book book){
+        System.out.println("调用book/add服务");
+        System.out.println(book);  // 在这里出了问题
+
+//        int result = bookService.addBook(book);
         int result = bookService.addBook(book);
+        System.out.println(result);
         if (result > 0){
             return ResultVO.success(null);
         }else {
             return ResultVO.failed("新增书籍失败");
         }
+
     }
+
 
     /**更新书籍的方法
      *
@@ -113,6 +131,7 @@ public class BookController {
      */
     @RequestMapping("/update")
     public ResultVO updateBook(Book book){
+
         int result = bookService.updateBook(book);
         if (result > 0){
             return ResultVO.success(null);

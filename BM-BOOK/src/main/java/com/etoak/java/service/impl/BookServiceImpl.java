@@ -111,7 +111,9 @@ public class BookServiceImpl
     // 教学==================================================================
     @Override
     public int addBook(Book book) {
-        return 0;
+        int result = bookMapper.insert(book);
+//        System.out.println(book);
+        return result;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.etoak.java.controller;
 
 import com.etoak.java.entity.Orders;
+import com.etoak.java.feign.IBookServiceFeign;
 import com.etoak.java.mapper.OrdersMapper;
 import com.etoak.java.service.impl.OrdersServiceImpl;
 import com.etoak.java.vo.ResultVO;
@@ -24,6 +25,9 @@ public class OrdersController {
 
     @Autowired
     OrdersServiceImpl ordersService;
+
+//    @Autowired
+//    IBookServiceFeign bookServiceFeign;
 
 //    @Value("${order.header}")
 //    private String orderNoHeader;     //前缀 nacos作用
@@ -117,10 +121,14 @@ public class OrdersController {
     @RequestMapping("/approved")
     public ResultVO approved(String orderNo){
         int result = ordersService.approved(orderNo);
-        if( result > 0 ){
-            return ResultVO.success("修改order的statu=1成功"+result);
+        if( result == 0 ) {
+            return ResultVO.failed("修改order表的statu=1失败 添加book失败");
+        } else  if( result == 1 ){
+            return ResultVO.success("修改order的statu=1成功 添加book成功");
+        } else if (result == 2){
+            return ResultVO.failed("修改order的statu=1成功  添加book失败");
         } else {
-            return ResultVO.failed("修改order的statu=1失败");
+            return ResultVO.failed("未知错误");
         }
     }
 
