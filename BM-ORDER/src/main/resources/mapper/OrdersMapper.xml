@@ -8,11 +8,11 @@
     <select id="computeByYear">
         select sum(total_price)
         from orders
-        where approval_time like %#{year}%
+        where YEAR(approval_time) = #{yearNeed}
     </select>
     <select id="computeByPublisher">
         select sum(total_price)
         from orders
-        where publisher = %#{publisher}%
+        where publisher = #{publisher}
     </select>
 </mapper>

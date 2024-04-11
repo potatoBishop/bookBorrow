@@ -6,19 +6,29 @@ import com.etoak.java.entity.Orders;
 import com.etoak.java.mapper.OrdersMapper;
 import com.etoak.java.service.IOrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 
 @Service
+@RefreshScope                       // 变量改变时刷新相关实体类
 public class OrdersServiceImpl
         extends ServiceImpl<OrdersMapper, Orders>
         implements IOrdersService {
 
     @Autowired
     OrdersMapper ordersMapper;
+
+    @Value("${order.header}")
+    private String orderNoHeader;     //前缀 nacos作用
+
 
     /**
      * 添加订单
@@ -27,6 +37,20 @@ public class OrdersServiceImpl
      */
     @Override
     public int addOrders(Orders order) {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // 随机生成书籍
+        Random rand = new Random();
+        String bookNo = "B" + formatter.format(date) + new String(String.valueOf(rand.nextInt(9000)+1000));
+
+        // 随机生成订单号
+        String orderNo = orderNoHeader + formatter.format(date);
+        order.setOrderNo(orderNo);
+
+        // 标记创建时间
+        order.setCreateTime(date);
+
         int result = ordersMapper.insert(order);
         return result;
     }
@@ -143,12 +167,13 @@ public class OrdersServiceImpl
 
     /**
      * 根据年份计算总的花费
-     * @param year
+     * @param yearNeed
      * @return
      */
     @Override
-    public BigDecimal computeByYear(Integer year) {
-        BigDecimal result = ordersMapper.computeByYear(year);
+    public BigDecimal computeByYear(Integer yearNeed) {
+//        System.out.println(yearNeed);
+        BigDecimal result = ordersMapper.computeByYear(yearNeed);
         return result;
     }
 

@@ -52,10 +52,10 @@ public interface IOrdersService extends IService<Orders> {
     public int rejected(String orderNo);
     /**
      * 根据年份计算总的花费
-     * @param year
+     * @param yearNeed
      * @return
      */
-    public BigDecimal computeByYear(Integer year);
+    public BigDecimal computeByYear(Integer yearNeed);
     /**
      * 根据出版社计算总的花费
      * @param publisher

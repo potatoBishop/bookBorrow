@@ -5,21 +5,28 @@ import com.etoak.java.mapper.OrdersMapper;
 import com.etoak.java.service.impl.OrdersServiceImpl;
 import com.etoak.java.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/orders")
-@RefreshScope                       // 变量改变时刷新相关实体类
+//@RefreshScope                       // 变量改变时刷新相关实体类
 public class OrdersController {
 
     @Autowired
     OrdersServiceImpl ordersService;
 
+//    @Value("${order.header}")
+//    private String orderNoHeader;     //前缀 nacos作用
 
     /**
      * 添加订单
@@ -136,12 +143,12 @@ public class OrdersController {
 
     /**
      * 根据年份计算总的花费
-     * @param year
+     * @param yearNeed
      * @return
      */
     @RequestMapping("/computeByYear")
-    public ResultVO computeByYear(Integer year){
-        BigDecimal result = ordersService.computeByYear(year);
+    public ResultVO computeByYear(Integer yearNeed){
+        BigDecimal result = ordersService.computeByYear(yearNeed);
         if( result != null ){
             return ResultVO.success(result);
         } else {

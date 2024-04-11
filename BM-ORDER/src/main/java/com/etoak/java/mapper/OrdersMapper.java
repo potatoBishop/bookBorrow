@@ -14,7 +14,7 @@ public interface OrdersMapper extends BaseMapper<Orders> {
             @Param(value = "status") Integer status
     );
     BigDecimal computeByYear(
-            @Param(value = "year") int year
+            @Param(value = "yearNeed") Integer yearNeed
     );
     BigDecimal computeByPublisher(
             @Param(value = "publisher") String publisher
