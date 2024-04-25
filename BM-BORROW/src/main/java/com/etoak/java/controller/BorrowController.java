@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/borrow")
 public class BorrowController {
 
-
     @Autowired
     BorrowServiceImpl borrowService;
     // 如果feign接口注入时提示红线, 无法注入，则需要检查有么有开启spingCloud的feign支持
@@ -25,6 +24,7 @@ public class BorrowController {
     IUserServiceFeign userServiceFeign;
     @Autowired
     IBookServiceFeign bookServiceFeign;
+
 
     /**借书
      *

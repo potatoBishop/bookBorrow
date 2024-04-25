@@ -19,6 +19,7 @@
         <module>BM-BOOK</module>
         <module>BM-ORDER</module>
         <module>BM-BORROW</module>
+        <module>Gateway</module>
     </modules>
 
     <properties>
@@ -63,10 +64,10 @@
             version : z
             dependencise的依赖会被子工程自动继承
         -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-web</artifactId>-->
+<!--        </dependency>-->
 
         <!-- lombok 实体类 减少写的实体类的代码 -->
         <dependency>

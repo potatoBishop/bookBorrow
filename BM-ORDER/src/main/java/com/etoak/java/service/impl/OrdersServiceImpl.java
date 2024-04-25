@@ -160,9 +160,33 @@ public class OrdersServiceImpl
         result = ordersMapper.updateOrderStatus(orderNo, 1);
         if( result == 0 ) return result;
         else if( result == 1 ){
+            Date date = new Date();
+            Book book = new Book();
+            Orders orders = selectByNo(orderNo);
+            Random rand = new Random();
+
+            String bookNo = "B" + orders.getOrderNo()
+                    + (rand.nextInt(9000) + 1000);
+
             System.out.println("调用bookOpenFeign");
+            book.setBookName(orders.getBookName());
+            book.setAuthor(orders.getAuthor());
+            book.setBookNo(bookNo);
+            book.setPublisher(orders.getPublisher());
+            book.setPublishTime(orders.getPublishTime());
+            book.setDurability(1);      //崭新出厂
+            book.setStorageTime(date);  //进日期
+            book.setStatus(0);          //可借出
+            book.setBookLable(orders.getBookLable());
+            book.setUpdateTime(date);
+            book.setUpdateUser(orders.getCreateUser());
+            ResultVO p = bookServiceFeign.addBook(book);
+            if(Objects.equals(p, ResultVO.success(null))){
+                result = 1;
+            } else {
+                result = 2;
+            }
         }
-        result = 2;  // 无法完成的主要部分， openFeign不支持对象的传递
         return result;
     }
 

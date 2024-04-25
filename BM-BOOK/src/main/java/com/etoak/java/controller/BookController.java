@@ -9,6 +9,8 @@ import com.etoak.java.service.IBookService;
 import com.etoak.java.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -107,8 +109,8 @@ public class BookController {
      * @param book
      * @return
      */
-    @RequestMapping("/addBook")
-    public ResultVO addBook(Book book){
+    @PostMapping("/addBook")
+    public ResultVO addBook(@RequestBody Book book){
         System.out.println("调用book/add服务");
         System.out.println(book);  // 在这里出了问题
 
@@ -123,6 +125,26 @@ public class BookController {
 
     }
 
+//    /**
+//     * 新增书籍的方法
+//     * @param book
+//     * @return
+//     */
+//    @RequestMapping("/addBook2")
+//    public ResultVO addBook2(Book book){
+//        System.out.println("调用book/add服务");
+////        System.out.println(book);  // 在这里出了问题
+//
+////        int result = bookService.addBook(book);
+//        int result = bookService.addBook(book);
+//        System.out.println(result);
+//        if (result > 0){
+//            return ResultVO.success(null);
+//        }else {
+//            return ResultVO.failed("新增书籍失败");
+//        }
+//
+//    }
 
     /**更新书籍的方法
      *

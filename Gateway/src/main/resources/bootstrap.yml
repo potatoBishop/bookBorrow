@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: bm-gateway-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+        namespace: public
+    gateway:
+    # 路由规则
+      routes:
+        - id: user_service_route  # 路由的唯一标识
+          uri: lb://bm-user-service # 要转发到什么服务   lb:使用默认的负载均衡策略
+          predicates:
+            # http://localhost:8080/user-serv/user/add
+            - Path=/user-serv/**
+          filters:
+            - StripPrefix=1
+        - id: book_service_route  # 路由的唯一标识
+          uri: lb://bm-book-service # 要转发到什么服务   lb:使用默认的负载均衡策略
+          predicates:
+            # http://localhost:8080/user-serv/user/add
+            - Path=/book-serv/**
+          filters:
+            - StripPrefix=1
+        - id: borrow_service_route  # 路由的唯一标识
+          uri: lb://bm-borrow-service # 要转发到什么服务   lb:使用默认的负载均衡策略
+          predicates:
+            # http://localhost:8080/user-serv/user/add
+            - Path=/borrow-serv/**
+          filters:
+            - StripPrefix=1
+        - id: order_service_route  # 路由的唯一标识
+          uri: lb://bm-order-service # 要转发到什么服务   lb:使用默认的负载均衡策略
+          predicates:
+            # http://localhost:8080/user-serv/user/add
+            - Path=/order-serv/**
+          filters:
+            - StripPrefix=1

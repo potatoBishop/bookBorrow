@@ -3,7 +3,7 @@
 <mapper namespace="com.etoak.java.mapper.OrdersMapper">
     <update id="updateOrderStatus">
         update orders set status = 1
-        where order_no = #{orderNo} and status = 0;
+        where order_no = #{orderNo} and status = #{status};
     </update>
     <select id="computeByYear">
         select sum(total_price)

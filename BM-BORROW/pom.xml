@@ -18,6 +18,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <!-- nacos config 配置中心的依赖 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
