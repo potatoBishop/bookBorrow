@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 20000
 
 spring:
   application:
@@ -17,28 +17,28 @@ spring:
         - id: user_service_route  # 路由的唯一标识
           uri: lb://bm-user-service # 要转发到什么服务   lb:使用默认的负载均衡策略
           predicates:
-            # http://localhost:8080/user-serv/user/add
+            # http://localhost:20000/user-serv/users/list
             - Path=/user-serv/**
           filters:
             - StripPrefix=1
         - id: book_service_route  # 路由的唯一标识
           uri: lb://bm-book-service # 要转发到什么服务   lb:使用默认的负载均衡策略
           predicates:
-            # http://localhost:8080/user-serv/user/add
+            # http://localhost:20000/book-serv/book/selectAllBook
             - Path=/book-serv/**
           filters:
             - StripPrefix=1
         - id: borrow_service_route  # 路由的唯一标识
           uri: lb://bm-borrow-service # 要转发到什么服务   lb:使用默认的负载均衡策略
           predicates:
-            # http://localhost:8080/user-serv/user/add
+            # http://localhost:20000/borrow-serv/borrow/borrowBook
             - Path=/borrow-serv/**
           filters:
             - StripPrefix=1
         - id: order_service_route  # 路由的唯一标识
           uri: lb://bm-order-service # 要转发到什么服务   lb:使用默认的负载均衡策略
           predicates:
-            # http://localhost:8080/user-serv/user/add
+            # http://localhost:20000/order-serv/orders/listOrders
             - Path=/order-serv/**
           filters:
             - StripPrefix=1

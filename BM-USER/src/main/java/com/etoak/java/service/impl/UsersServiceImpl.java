@@ -1,5 +1,6 @@
 package com.etoak.java.service.impl;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.etoak.java.entity.Users;
@@ -65,6 +66,7 @@ public class UsersServiceImpl
      * @param usersVO
      * @return
      */
+    @SentinelResource(value = "getUserListService")
     @Override
     public List<UsersVO> getUsersByParam(UsersVO usersVO) {
         QueryWrapper wrapper = new QueryWrapper();
@@ -138,5 +140,13 @@ public class UsersServiceImpl
 
     }
 
-
+    /**
+     * 公共资源
+     * @param from
+     * @return
+     */
+    @SentinelResource(value = "commonResource")
+    public String commonResource(String from) {
+        return "公共资源被调用了， 调用来源"+from;
+    }
 }

@@ -18,6 +18,11 @@
     </properties>
 
     <dependencies>
+        <!-- sentinel 依赖 -->
+        <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
         <!-- gateway 的依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

@@ -1,6 +1,8 @@
 package com.etoak.java.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.etoak.java.entity.Users;
+import com.etoak.java.handler.UserSentinelBlockHandler;
 import com.etoak.java.service.impl.UsersServiceImpl;
 import com.etoak.java.vo.ResultVO;
 import com.etoak.java.vo.UsersVO;
@@ -79,6 +81,9 @@ public class UsersController {
      * @param usersVO
      * @return
      */
+    @SentinelResource(value = "getUserList",
+            blockHandlerClass = UserSentinelBlockHandler.class,
+            blockHandler = "blockHandler")
     @RequestMapping("/list")
     public ResultVO getUserList(UsersVO usersVO){
         List<UsersVO> resultList = usersService.getUsersByParam(usersVO);
@@ -127,4 +132,20 @@ public class UsersController {
     public ResultVO updateUserCreditLevel(Integer id, Integer levelNumber ){
         return usersService.updateUserCreditLevel(id, levelNumber);
     }
+
+    /**
+     * 优先提供给 entrance1 资源
+     * @return
+     */
+//    @SentinelResource(value = "")
+    @RequestMapping("/entrance1")
+    public String entrance1(){
+        return usersService.commonResource("entrance1");
+    }
+//    @SentinelResource(value = "")
+    @RequestMapping("/entrance2")
+    public String entrance2(){
+        return usersService.commonResource("entrance2");
+    }
+
 }

@@ -3,6 +3,7 @@ package com.etoak.java.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.etoak.java.entity.Borrow;
+import com.etoak.java.entity.Users;
 import com.etoak.java.feign.IBookServiceFeign;
 import com.etoak.java.feign.IUserServiceFeign;
 import com.etoak.java.mapper.BorrowMapper;
@@ -82,23 +83,35 @@ public class BorrowServiceImpl
             return false;
         }
         // 2.用户要借的书是否还在（在库？已借出）
-        Integer bookStatus = 0; //在库
+        int bookStatus = 0; //在库
         if( bookStatus == 1 ){
             //图书已借出
             System.out.println("图书已经借出");
+            // 添加到预约表
+
+
+
+
             return false;
         }
+        //图书未借出
+
+        Users user = (Users) userServiceFeign.getUserById(userId).getData();
         // 3.新增一条借阅记录 borrow
         Borrow newBorrow = new Borrow();
         newBorrow.setUserId(userId);
         newBorrow.setBookNo(bookNo);
         newBorrow.setDuration(duration);
         newBorrow.setCreateTime(new Date());
-        newBorrow.setStuNo("2012114514");
+        newBorrow.setStuNo(user.getStuNo());
         Integer flag = borrowMapper.insert(newBorrow);
         System.out.println("新增一条记录"+ flag);
         // 4.将书修改为已借出状态
         bookServiceFeign.bookBorrow(bookNo);
+        // 5.增加计时器
+
+
+
 
         return true;
     }

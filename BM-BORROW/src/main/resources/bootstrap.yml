@@ -28,6 +28,9 @@ spring:
         enabled: true         # 开启配置中心 --》 可以不写
         group: bm
         file-extension: yml   # 与配置中心文件类型保持一致, 自动拼接成bm-user-service-dev.yml
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
 #  datasource:
 #    # 数据库标准链接, 数据库类型  jdbc效率最高，但是麻烦, 所以咱们用mybatis-plus
 #    url: jdbc:mysql://localhost:3306/bm-borrow

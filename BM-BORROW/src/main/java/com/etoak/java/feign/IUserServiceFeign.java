@@ -31,6 +31,9 @@ public interface IUserServiceFeign {
     ResultVO updateUserCreditLevel(
             @RequestParam(value = "id") Integer userid,
             @RequestParam(value = "levelNumber") Integer levelNumber);
+
+    @RequestMapping("/selectById")
+    ResultVO getUserById(@RequestParam(value = "id")Integer id);
 }
 
 
