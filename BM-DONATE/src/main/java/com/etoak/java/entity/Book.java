@@ -10,48 +10,51 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-@TableName(value = "book")
+//@TableName(value = "book")
 @Data
 public class Book {
-    @TableId(value = "id",type = IdType.AUTO)
+//    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
 
-    @TableField(value = "author")
+//    @TableField(value = "author")
     private String author;
 
-    @TableField(value = "book_no")
+//    @TableField(value = "book_no")
     private String bookNo;
 
-    @TableField(value = "book_name")
+//    @TableField(value = "book_name")
     private String bookName;
 
-    @TableField(value = "publisher")
+//    @TableField(value = "publisher")
     private String publisher;
 
-    @TableField(value = "publish_time")
+//    @TableField(value = "publish_time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date publishTime;
 
-    @TableField(value = "durability")
+//    @TableField(value = "durability")
     private Integer durability;
 
-    @TableField(value = "storage_time")
+//    @TableField(value = "storage_time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date storageTime;
 
-    @TableField(value = "status")
+//    @TableField(value = "status")
     private Integer status;
 
-    @TableField(value = "book_lable")
+//    @TableField(value = "book_lable")
     private String bookLable;
 
-    @TableField(value = "update_time")
+//    @TableField(value = "update_time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    @TableField(value = "update_user")
+//    @TableField(value = "update_user")
     private String updateUser;
+
+//    @TableField(value = "points")
+    private Integer points;
 }

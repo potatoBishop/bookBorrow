@@ -34,6 +34,12 @@ public class BookController {
     IOrdersServiceFeign ordersServiceFeign;
 
 
+//    @RequestMapping("/getBookEntity")
+//    public ResultVO getBookEntity(){
+//        Book book = bookService.
+//    }
+
+
     /**查询所有书籍
      *
      */

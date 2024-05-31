@@ -25,6 +25,27 @@ public class UsersController {
     @Value("${qdu.stu-no}")
     private String stuNoPrefix;     //前缀 nacos作用
 
+    @RequestMapping("/plusPoints")
+    public ResultVO plusPoints(int usersId, int plus){
+        int result = usersService.plusPoints(usersId, plus);
+        if( result > 0 ){
+            return ResultVO.success(result);
+        } else {
+            return ResultVO.failed("改变用户points失败！");
+        }
+    }
+
+    @RequestMapping("/checkPoints")
+    public ResultVO checkPoints(int usersId){
+        int result = usersService.checkPoints(usersId);
+        if( result >= 0 ){
+            return ResultVO.success(result);
+        } else {
+            return ResultVO.failed("查询points出现负数！");
+        }
+    }
+
+
     @RequestMapping("/prefix")
     public void getStuNoPrefix(){
         System.out.println("从配置中心读取配置"+stuNoPrefix);

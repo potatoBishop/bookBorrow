@@ -24,6 +24,9 @@ public interface IUsersService extends IService<Users> {
      *
      */
 
+    public int plusPoints(int userId, int plus);
+    public int checkPoints(int userId);
+
     /**
      * interface 中  public 修饰符是黑色的 没用，写不写是一样的
      * 在 interface 中 默认所有抽象方法都是public修饰

@@ -23,6 +23,14 @@ public interface IUserServiceFeign {
      * @param userId
      * @return
      */
+    @RequestMapping(value = "/plusPoints")
+    public ResultVO plusPoints(@RequestParam(value = "usersId") int usersId,
+                               @RequestParam(value = "plus") int plus);
+
+    @RequestMapping(value = "/checkPoints")
+    public ResultVO checkPoints(@RequestParam(value = "usersId") int usersId);
+
+
     @RequestMapping(value = "/blockStatus")
     ResultVO getUserBlockStatus(
             @RequestParam(value = "id") Integer userId);

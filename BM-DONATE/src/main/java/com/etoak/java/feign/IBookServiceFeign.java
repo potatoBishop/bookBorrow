@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.awt.print.Book;
+import com.etoak.java.entity.Book;
 
 @FeignClient(value = "bm-book-service", path = "/book")
 public interface IBookServiceFeign {
@@ -35,4 +35,7 @@ public interface IBookServiceFeign {
 
     @RequestMapping(value = "/addBook")
     public ResultVO addBook(@Param(value = "book") Book book);
+
+    @RequestMapping("/getBookByNo")
+    public ResultVO getBookByNo(@Param(value = "bookNo") String bookNo);
 }

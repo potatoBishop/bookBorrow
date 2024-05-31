@@ -17,44 +17,43 @@ import java.util.Date;
 
 // lombok  @ Data 自动默认生成 get 和 set   仅在编译阶段使用即可
 
-@TableName(value = "users")
+//@TableName(value = "users")
 @Data
 public class Users {
 
     /**
      * @ TableId 表示主键标识
      */
-    @TableId(value = "id",type = IdType.AUTO)
+//    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
-    @TableField(value = "name")
+//    @TableField(value = "name")
     private String name;
-    @TableField(value = "stu_no")
+//    @TableField(value = "stu_no")
     private String stuNo;
-    @TableField(value = "college")
+//    @TableField(value = "college")
     private String college;
-    @TableField(value = "major")
+//    @TableField(value = "major")
     private String major;
-    @TableField(value = "clazz")
+//    @TableField(value = "clazz")
     private String clazz;
-    @TableField(value = "gender")
+//    @TableField(value = "gender")
     private Integer gender;
-    @TableField(value = "grade")
+//    @TableField(value = "grade")
     private String grade;
-    @TableField(value = "id_no")
+//    @TableField(value = "id_no")
     private String idNo;
-    @TableField(value = "credit_level")
+//    @TableField(value = "credit_level")
     private String creditLevel;
-    @TableField(value = "is_block")
+//    @TableField(value = "is_block")
     private Integer isBlock;
     /**
      *  Date.java.util.Date
      */
 
-    @TableField(value = "create_time")
+//    @TableField(value = "create_time")
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
-
-
-
+//    @TableField(value = "points")
+    private Integer points;
 }

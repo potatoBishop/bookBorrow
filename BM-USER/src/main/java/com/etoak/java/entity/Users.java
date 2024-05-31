@@ -55,6 +55,9 @@ public class Users {
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date createTime;
 
+    @TableField(value = "points")
+    private Integer points;
+
 
 
 }

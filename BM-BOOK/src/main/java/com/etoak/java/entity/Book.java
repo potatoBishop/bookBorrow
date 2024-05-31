@@ -53,4 +53,7 @@ public class Book {
 
     @TableField(value = "update_user")
     private String updateUser;
+
+    @TableField(value = "points")
+    private Integer points;
 }

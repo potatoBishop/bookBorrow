@@ -19,47 +19,80 @@ import java.util.List;
 public class DonateController {
 
     @Autowired
-    DonateServiceImpl borrowService;
+    DonateServiceImpl donateService;
     // 如果feign接口注入时提示红线, 无法注入，则需要检查有么有开启spingCloud的feign支持
     @Autowired
     IUserServiceFeign userServiceFeign;
     @Autowired
     IBookServiceFeign bookServiceFeign;
 
-//    @RequestMapping("/borrowBook")
-//    public ResultVO borrowBook(){}
-
+    /**
+     * 1.新增捐献记录
+     * @param donate
+     * @return
+     */
     @RequestMapping("/addDonate")
     public ResultVO addDonate(Donate donate) {
         return ResultVO.success(1);
     }
 
+    /**
+     * 2.删除捐赠记录（假删除
+     * @param donateId
+     * @return
+     */
     @RequestMapping("/deleteDonate")
     public ResultVO deleteDonate(int donateId) {
         return ResultVO.success(1);
     }
 
+    /**
+     * 3.更新捐赠记录
+     * @param donate
+     * @return
+     */
     @RequestMapping("/updateDonate")
     public ResultVO updateDonate(Donate donate) {
         return ResultVO.success(1);
     }
 
-    @RequestMapping("/addDonate")
-    public ResultVO checkDonate(int donatorId) {
+    /**
+     * 4.查询捐赠记录（仅is_delete == 0
+     * @param donatorId
+     * @return
+     */
+    @RequestMapping("/selectDonate")
+    public ResultVO selectDonate(int donatorId) {
         return ResultVO.success(1);
     }
 
-    @RequestMapping("/addDonate")
+    /**
+     * 5.确认捐赠
+     * @param donateId
+     * @return
+     */
+    @RequestMapping("/confirmDonate")
     public ResultVO confirmDonate(int donateId) {
         return ResultVO.success(1);
     }
 
-    @RequestMapping("/addDonate")
+    /**
+     * 6.驳回捐赠
+     * @param donateId
+     * @return
+     */
+    @RequestMapping("/rejectDonate")
     public ResultVO rejectDonate(int donateId) {
         return ResultVO.success(1);
     }
 
-    @RequestMapping("/addDonate")
+    /**
+     * 7.使用积分兑换书籍
+     * @param donateId
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/redeemDonate")
     public ResultVO redeemBookByPoints(int donateId, int userId) {
         return ResultVO.success(1);
     }

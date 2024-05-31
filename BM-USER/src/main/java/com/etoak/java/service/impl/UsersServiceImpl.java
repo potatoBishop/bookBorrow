@@ -36,6 +36,20 @@ public class UsersServiceImpl
 
 
     @Override
+    public int plusPoints(int userId, int plus) {
+        Users users = usersMapper.selectById(userId);
+        users.setPoints( users.getPoints() + plus );
+        int result = usersMapper.updateById(users);
+        return result;
+    }
+
+    @Override
+    public int checkPoints(int userId) {
+        Users users = usersMapper.selectById(userId);
+        return users.getPoints();
+    }
+
+    @Override
     public int addUser(Users users) {
         //新增用户 int 类型返回值 代表 影响行数
         int result =  usersMapper.insert(users);
