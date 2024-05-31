@@ -42,3 +42,10 @@ spring:
             - Path=/order-serv/**
           filters:
             - StripPrefix=1
+        - id: donate_service_route  # 路由的唯一标识
+          uri: lb://bm-donate-service # 要转发到什么服务   lb:使用默认的负载均衡策略
+          predicates:
+            # http://localhost:20000/donate-serv/donate/addDonate
+            - Path=/donate-serv/**
+          filters:
+            - StripPrefix=1

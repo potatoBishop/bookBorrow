@@ -44,8 +44,5 @@ public interface IDonateService extends IService<Donate> {
             // 将书籍状态修改为 已被兑换（OpenFeign）
         // 积分不足
             // 提示请求拒绝
-//    boolean borrowBook(Integer userId,String bookNo,Integer duration);
-//    boolean borrowBookFeign(Integer userId,String bookNo,Integer duration);
-//    boolean returnBook(String bookNo);
-//    List<Book> selectBookByRestrict(String restriction);    // 用逗号隔开各个条件
+
 }

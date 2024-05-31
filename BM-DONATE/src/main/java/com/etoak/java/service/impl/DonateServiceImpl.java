@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /***
  * @Author 高俊 QQ:1120934832
@@ -33,6 +34,38 @@ public class DonateServiceImpl
     IBookServiceFeign bookServiceFeign;
 
 
+    @Override
+    public boolean addDonate(Donate donate) {
+        return false;
+    }
 
+    @Override
+    public boolean deleteDonate(int donateId) {
+        return false;
+    }
 
+    @Override
+    public boolean updateDonate(Donate donate) {
+        return false;
+    }
+
+    @Override
+    public List<Donate> checkDonate(int donatorId) {
+        return null;
+    }
+
+    @Override
+    public boolean confirmDonate(int donateId) {
+        return false;
+    }
+
+    @Override
+    public boolean rejectDonate(int donateId) {
+        return false;
+    }
+
+    @Override
+    public boolean redeemBookByPoints(int donateId, int userId) {
+        return false;
+    }
 }
