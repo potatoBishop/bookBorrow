@@ -139,7 +139,9 @@ public class UsersController {
      */
 //    @SentinelResource(value = "")
     @RequestMapping("/entrance1")
-    public String entrance1(){
+    public String entrance1() throws Exception{
+        Thread.sleep(2000);
+//        int x = 1/0;   异常熔断
         return usersService.commonResource("entrance1");
     }
 //    @SentinelResource(value = "")

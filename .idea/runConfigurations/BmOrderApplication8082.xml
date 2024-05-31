@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="BmUserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-    <module name="BM-USER" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.etoak.java.BmUserApplication" />
+  <configuration default="false" name="BmOrderApplication8082" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="BM-ORDER" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.etoak.java.BmOrderApplication" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.etoak.java.*" />

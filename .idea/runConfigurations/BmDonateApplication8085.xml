@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="BmBorrowApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-    <module name="BM-BORROW" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.etoak.java.BmBorrowApplication" />
+  <configuration default="false" name="BmDonateApplication8085" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="BM-DONATE" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.etoak.java.BmDonateApplication" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.etoak.java.*" />

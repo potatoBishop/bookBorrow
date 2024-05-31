@@ -20,6 +20,7 @@
         <module>BM-ORDER</module>
         <module>BM-BORROW</module>
         <module>Gateway</module>
+        <module>BM-DONATE</module>
     </modules>
 
     <properties>

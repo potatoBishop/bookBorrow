@@ -1,0 +1,44 @@
+# bootstrap.yml 是 springboot 框架的配置文件
+# spring 框架会默认的去 resources 下寻找名为 application.yml的配置文件
+
+#server:
+#  port: 8085
+
+# 数据源配置
+spring:
+  application:
+    name: bm-donate-service
+  profiles:
+    active: dev       # 自动拼接  bm-user-service-dev     开发环境
+  #    active: test       # 自动拼接  bm-user-service-test  测试环境
+  #    active: prod       # 自动拼接  bm-user-service-prod  生产环境
+  cloud:
+    nacos:
+      discovery:
+        # 配置nacos服务器的地址
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+        # 不写默认是public  命名空间用于将不同的服务划分为不同的组 标记不同的生产环境
+        namespace: public
+      config:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+        enabled: true         # 开启配置中心 --》 可以不写
+        group: bm
+        file-extension: yml   # 与配置中心文件类型保持一致, 自动拼接成bm-user-service-dev.yml
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+#  datasource:
+#    # 数据库标准链接, 数据库类型  jdbc效率最高，但是麻烦, 所以咱们用mybatis-plus
+#    url: jdbc:mysql://localhost:3306/bm-borrow
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    # 账号密码
+#    username: root
+#    password: 123456
+logging:
+  level:
+    com.etoak.java.service.impl: debug

@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="BmOrderApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-    <module name="BM-ORDER" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.etoak.java.BmOrderApplication" />
+  <configuration default="false" name="BmBookApplication8081" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="BM-BOOK" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.etoak.java.BmBookApplication" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.etoak.java.*" />
