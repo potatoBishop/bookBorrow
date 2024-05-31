@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /***
- * @Author 高俊 QQ:1120934832
- * @Slogan 易途科技，精英启航
+ * @Author 土豆真人 QQ:1972588587
  */
 @RestController
 @RequestMapping("/borrow")
@@ -26,5 +25,5 @@ public class DonateController {
     IBookServiceFeign bookServiceFeign;
 
 
-    
+
 }
