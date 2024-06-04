@@ -36,7 +36,7 @@ public interface IDonateService extends IService<Donate> {
         // set donate_state = 0
 
     // 7.使用积分 书籍编号、兑换人学号
-    int redeemBookByPoints(int donateId, int userId);
+    int redeemBookByPoints(String bookNo, int userId);
         // 书籍在库？ 所需积分  返回一个book实体
         // 查询该兑换人积分余额 返回一个user实体
         // 若余额充足

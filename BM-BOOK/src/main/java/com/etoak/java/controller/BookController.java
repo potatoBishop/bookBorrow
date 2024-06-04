@@ -7,6 +7,7 @@ import com.etoak.java.feign.IOrdersServiceFeign;
 import com.etoak.java.mapper.BookMapper;
 import com.etoak.java.service.IBookService;
 import com.etoak.java.vo.ResultVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -204,9 +205,12 @@ public class BookController {
      * @return
      */
     @RequestMapping("/getBookByNo")
-    public ResultVO getBookByNo(String bookNo){
+    public Book getBookByNo( String bookNo){
         Book book = bookService.getBookByNo(bookNo);
-        return ResultVO.success(book);
+        System.out.println(bookNo);
+        System.out.println("/getBookByNo");
+        System.out.println(book);
+        return book;
     }
 
     /**书籍借出时调用

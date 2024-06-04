@@ -134,9 +134,9 @@ public class UsersController {
      */
 
     @RequestMapping("/selectById")
-    public ResultVO getUserById(Integer id){
+    public Users getUserById(Integer id){
         Users users = usersService.getUserById(id);
-        return ResultVO.success(users);
+        return users;
     }
     @Value("${server.port}")
     String port;

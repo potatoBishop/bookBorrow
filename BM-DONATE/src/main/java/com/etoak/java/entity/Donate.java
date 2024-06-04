@@ -20,7 +20,7 @@ public class Donate {
     private String donator;
 
     @TableField(value = "donator_id")
-    private Integer donator_id;
+    private Integer donatorId;
 
     @TableField(value = "book_name")
     private String bookName;

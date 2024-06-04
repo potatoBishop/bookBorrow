@@ -8,4 +8,8 @@
     <update id="updateBookStatus2">
         update book set status = #{status} where book_no = #{bookNo}
     </update>
+
+    <select id="getBookByNo">
+        select * from book where book_no = #{bookNo}
+    </select>
 </mapper>

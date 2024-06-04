@@ -33,17 +33,19 @@ public class DonateController {
      */
     @RequestMapping("/addDonate")
     public ResultVO addDonate(Donate donate) {
-        return ResultVO.success(1);
+        System.out.println("=====donate:"+donate);
+        return ResultVO.success(donateService.addDonate(donate));
     }
 
     /**
      * 2.删除捐赠记录（假删除
-     * @param donateId
+     * @param id
      * @return
      */
     @RequestMapping("/deleteDonate")
-    public ResultVO deleteDonate(int donateId) {
-        return ResultVO.success(1);
+    public ResultVO deleteDonate(int id) {
+        System.out.println("=====donateId:"+id);
+        return ResultVO.success(donateService.deleteDonate(id));
     }
 
     /**
@@ -53,7 +55,7 @@ public class DonateController {
      */
     @RequestMapping("/updateDonate")
     public ResultVO updateDonate(Donate donate) {
-        return ResultVO.success(1);
+        return ResultVO.success(donateService.updateDonate(donate));
     }
 
     /**
@@ -63,38 +65,38 @@ public class DonateController {
      */
     @RequestMapping("/selectDonate")
     public ResultVO selectDonate(int donatorId) {
-        return ResultVO.success(1);
+        return ResultVO.success(donateService.selectDonate(donatorId));
     }
 
     /**
      * 5.确认捐赠
-     * @param donateId
+     * @param id
      * @return
      */
     @RequestMapping("/confirmDonate")
-    public ResultVO confirmDonate(int donateId) {
-        return ResultVO.success(1);
+    public ResultVO confirmDonate(int id) {
+        return ResultVO.success(donateService.confirmDonate(id));
     }
 
     /**
      * 6.驳回捐赠
-     * @param donateId
+     * @param id
      * @return
      */
     @RequestMapping("/rejectDonate")
-    public ResultVO rejectDonate(int donateId) {
-        return ResultVO.success(1);
+    public ResultVO rejectDonate(int id) {
+        return ResultVO.success(donateService.rejectDonate(id));
     }
 
     /**
      * 7.使用积分兑换书籍
-     * @param donateId
+     * @param bookNo
      * @param userId
      * @return
      */
     @RequestMapping("/redeemDonate")
-    public ResultVO redeemBookByPoints(int donateId, int userId) {
-        return ResultVO.success(1);
+    public ResultVO redeemBookByPoints(String bookNo, int userId) {
+        return ResultVO.success(donateService.redeemBookByPoints(bookNo, userId));
     }
 
 }

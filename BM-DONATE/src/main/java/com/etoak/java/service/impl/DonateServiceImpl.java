@@ -11,6 +11,7 @@ import com.etoak.java.feign.IUserServiceFeign;
 import com.etoak.java.mapper.DonateMapper;
 import com.etoak.java.service.IDonateService;
 import com.etoak.java.vo.ResultVO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -39,12 +40,14 @@ public class DonateServiceImpl
 
     @Override
     public int addDonate(Donate donate) {
+//        System.out.println(donate);
         int result = donateMapper.insert(donate);
         return result;
     }
 
     @Override
     public int deleteDonate(int donateId) {
+//        System.out.println("donateId:" + donateId);
         int result = donateMapper.deleteByDonatorId(donateId);
         return result;
     }
@@ -68,11 +71,24 @@ public class DonateServiceImpl
     public int confirmDonate(int donateId) {
         int result = donateMapper.updateDonateState(1, donateId);
         Donate donate = donateMapper.selectById(donateId);
+        Date d1 = new Date(); //当前时间
         // bookOpenFeign新增书籍
         Book book = new Book();
+        book.setAuthor(donate.getAuthor());
+        book.setBookNo(donate.getBookNo());
+        book.setBookName(donate.getBookName());
+        book.setPublisher(donate.getPublisher());
+        book.setPublishTime(donate.getPublishTime());
+        book.setDurability(donate.getDurability());
+        book.setStorageTime(d1);
+        book.setStatus(0);
+        book.setBookLable(donate.getBookLable());
+        book.setUpdateTime(d1);
+        book.setUpdateUser("potatoBishop");
+        book.setPoints(donate.getPoints());
         bookServiceFeign.addBook(book);
         // userOpenFeign增加一个user的points
-        int donatorId = donate.getDonator_id();
+        int donatorId = donate.getDonatorId();
         int points = donate.getPoints();
         userServiceFeign.plusPoints(donatorId, points);
         return result;
@@ -85,17 +101,21 @@ public class DonateServiceImpl
     }
 
     @Override
-    public int redeemBookByPoints(int donateId, int userId) {
+    public int redeemBookByPoints(String bookNo, int userId) {
         // 1成功 2积分不足 3书籍已经借出 4其他错误
-        Donate donate = donateMapper.selectById(donateId);
-        String bookNo = donate.getBookNo();
         // 书籍在库？ 所需积分  返回一个book实体
-        Book book = (Book) bookServiceFeign.getBookByNo(bookNo).getData();
+//        System.out.println(bookServiceFeign.getBookByNo(bookNo));
+//        System.out.println(bookNo);
+//        System.out.println(userId);
+        Book book = bookServiceFeign.getBookByNo(bookNo);
+        System.out.println(book);
         int bookIsAvailable = book.getStatus();     // 书籍状态
         int pointsNeeded = book.getPoints();        // 书籍所需积分
 
         // 查询该兑换人积分余额 返回一个user实体
-        Users users = (Users) userServiceFeign.getUserById(userId).getData();
+        Users users = userServiceFeign.getUserById(userId);
+        System.out.println("user");
+        System.out.println(users);
         int pointsHad = users.getPoints();
 
         // 若余额充足
@@ -104,17 +124,17 @@ public class DonateServiceImpl
             userServiceFeign.plusPoints(userId, -pointsNeeded);
             // 将书籍状态修改为 已被兑换（OpenFeign）
             bookServiceFeign.updateBookStatus(bookNo, 1);
+            return 1;
         } else {
             // 积分不足
             if( pointsHad < pointsNeeded ){
                 return 2;
             }
-            // 书籍已经借出
-            if( bookIsAvailable == 1 ){
+            // 书籍已经借出 或 书籍不可用
+            if( bookIsAvailable == 1 || bookIsAvailable == 2 ){
                 return 3;
             }
             return 4;
         }
-        return 1;
     }
 }

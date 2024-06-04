@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.etoak.java.vo.ResultVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,9 +35,9 @@ public interface IBookServiceFeign {
     @RequestMapping(value = "/bookReturn")
     public  ResultVO bookReturn(@Param(value = "bookNo") String bookNo);
 
-    @RequestMapping(value = "/addBook")
-    public ResultVO addBook(@Param(value = "book") Book book);
+    @PostMapping(value = "/addBook")
+    public ResultVO addBook(@RequestBody Book book);
 
     @RequestMapping("/getBookByNo")
-    public ResultVO getBookByNo(@Param(value = "bookNo") String bookNo);
+    public Book getBookByNo(@RequestParam(value = "bookNo") String bookNo);
 }

@@ -2,9 +2,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.etoak.java.mapper.DonateMapper">
     <update id="deleteByDonatorId">
-        update donate set is_delete = 1 where id = #{donateId}
+        update donate set is_delete = 1 where id = #{donateId};
     </update>
     <update id="updateDonateState">
-        update donate set donate_state = #{newDonateState} where id = #{donateId}
+        update donate set donate_state = #{newDonateState} where id = #{donateId};
     </update>
 </mapper>
